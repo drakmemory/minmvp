@@ -25,7 +25,7 @@
             <ckeditor :editor="editor" v-model="editorData" :config="editorConfig" />
           </div>
           <div class="word-count">
-            <el-text type="info" size="small">字符数: {{ editorData.replace(/<[^>]*>/g, '').length }}</el-text>
+            <el-text type="info" size="small">字符数: {{ plainTextLength }}</el-text>
           </div>
         </el-card>
       </el-col>
@@ -49,12 +49,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { Ckeditor } from '@ckeditor/ckeditor5-vue'
+import { ref, computed } from 'vue'
+import { Ckeditor as CKEditor } from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { ElMessage } from 'element-plus'
 
-const ckeditor = Ckeditor
+const ckeditor = CKEditor
 
 const editor = ClassicEditor
 const showPreview = ref(true)
@@ -74,6 +74,16 @@ const editorData = ref(`<h2>欢迎使用富文本编辑器</h2>
 const editorConfig = {
   toolbar: ['heading', '|', 'bold', 'italic', 'underline', '|', 'bulletedList', 'numberedList', '|', 'blockQuote', 'insertTable', '|', 'undo', 'redo'],
 }
+
+// Use DOMParser to safely extract plain text for character counting
+// instead of a regex-based tag stripping approach.
+const plainTextLength = computed(() => {
+  try {
+    return new DOMParser().parseFromString(editorData.value, 'text/html').body.textContent.length
+  } catch {
+    return 0
+  }
+})
 
 const savedDocs = ref([
   { id: 1, title: '系统公告 2024-01-15', time: '10:30', content: '<h2>系统维护通知</h2><p>系统将于今晚22:00-24:00进行维护。</p>' },
