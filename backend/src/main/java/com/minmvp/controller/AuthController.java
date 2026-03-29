@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+
 @RestController
 @RequestMapping("/api")
 @Api(tags = "认证管理")
@@ -72,7 +74,8 @@ public class AuthController {
         vo.setRole(user.getRole());
         vo.setStatus(user.getStatus());
         vo.setAvatar(user.getAvatar());
-        vo.setCreateTime(user.getCreateTime());
+        vo.setCreateTime(user.getCreateTime() != null
+                ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(user.getCreateTime()) : null);
         return vo;
     }
 }
