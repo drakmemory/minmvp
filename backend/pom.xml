@@ -24,13 +24,13 @@
         <java.version>17</java.version>
         <mybatis-plus.version>3.1.2</mybatis-plus.version>
         <druid.version>1.2.6</druid.version>
-        <xxl-job.version>2.0.1</xxl-job.version>
+        <xxl-job.version>2.4.2</xxl-job.version>
         <easyexcel.version>2.1.6</easyexcel.version>
         <swagger.version>2.9.2</swagger.version>
-        <knife4j.version>2.0.2</knife4j.version>
+        <knife4j.version>2.0.9</knife4j.version>
         <java-jwt.version>3.8.1</java-jwt.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
-        <hutool.version>5.0.6</hutool.version>
+        <hutool.version>5.8.26</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
         <jasypt.version>3.0.3</jasypt.version>
         <lombok.version>1.18.30</lombok.version>
@@ -103,15 +103,18 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
+        <!-- springfox-swagger-ui removed due to XSS vulnerability (CVE in swagger-ui < 3.23.11).
+             Use Knife4j doc.html UI instead which is not affected. -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>${knife4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.springfox</groupId>
+                    <artifactId>springfox-swagger-ui</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- JWT -->
