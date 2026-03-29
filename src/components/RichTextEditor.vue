@@ -50,11 +50,9 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { Ckeditor as CKEditor } from '@ckeditor/ckeditor5-vue'
+import { Ckeditor } from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { ElMessage } from 'element-plus'
-
-const ckeditor = CKEditor
 
 const editor = ClassicEditor
 const showPreview = ref(true)
