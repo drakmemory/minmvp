@@ -24,7 +24,7 @@ public class Message {
 
     private Date time;
 
-    private Integer status;
+    private String status;
 
     @TableLogic
     private Integer deleted;

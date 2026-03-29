@@ -26,7 +26,7 @@ public class Task {
 
     private Date nextRun;
 
-    private Integer status;
+    private String status;
 
     private String duration;
 
