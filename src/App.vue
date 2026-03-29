@@ -214,3 +214,5 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
   border-right: none;
 }
 </style>
+  <router-view />
+</template>
